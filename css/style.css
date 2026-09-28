@@ -76,9 +76,7 @@ a { color: inherit; text-decoration: none; }
 .hero-bg img { animation: slowZoom 22s ease-out forwards; }
 
 .hero {
-  position: sticky;
-  top: 0;
-  z-index: 0;
+  position: relative;
   min-height: 92vh;
   display: flex;
   align-items: center;
