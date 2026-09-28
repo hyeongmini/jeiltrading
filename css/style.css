@@ -100,7 +100,7 @@ a { color: inherit; text-decoration: none; }
 .page-banner-content { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 24px; width: 100%; }
 .page-banner h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; }
 
-/* ---------- Home links: 고스트 넘버 + 아이콘 + 골드 언더라인 (한층 고급스러운 편집형 카드) ---------- */
+/* ---------- Home links: 사진 카드 + 아이콘 카드 혼합, 지그재그 배치 (밋밋한 4등분 그리드 탈피) ---------- */
 .home-links { padding: 96px 24px; background: var(--bg); }
 .home-links-inner { max-width: var(--max); margin: 0 auto; }
 .home-link-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
@@ -109,24 +109,43 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-height: 320px;
+  --stagger: 0px;
+  transform: translateY(var(--stagger));
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.home-link-card:nth-child(odd) { --stagger: -16px; }
+.home-link-card:nth-child(even) { --stagger: 16px; }
+.home-link-card:hover { transform: translateY(calc(var(--stagger) - 8px)); box-shadow: 0 24px 46px rgba(23,28,36,.16); }
+
+/* 사진형 카드 (소개/사업영역) */
+.home-link-card.is-photo { color: #fff; }
+.home-link-card.is-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.home-link-card.is-photo:hover img { transform: scale(1.08); }
+.home-link-card.is-photo .hl-tint { position: absolute; inset: 0; background: linear-gradient(200deg, rgba(23,28,36,.15) 20%, rgba(23,28,36,.88) 100%); }
+.home-link-card.is-photo .hl-body { position: relative; z-index: 1; margin-top: auto; padding: 28px 26px; }
+.home-link-card.is-photo .hl-eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .14em; color: var(--accent); margin-bottom: 8px; display: block; }
+.home-link-card.is-photo h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.home-link-card.is-photo p { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,.82); }
+
+/* 아이콘형 카드 (경영방침/복지제도) */
+.home-link-card.is-icon {
   background: linear-gradient(160deg, #ffffff 0%, #faf6ee 100%);
   border: 1px solid var(--border);
-  padding: 34px 28px 28px;
-  min-height: 250px;
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  padding: 32px 26px 26px;
 }
-.home-link-card::before {
+.home-link-card.is-icon::before {
   content: attr(data-num);
   position: absolute;
-  right: -6px; bottom: -34px;
-  font-size: 128px;
+  right: -6px; bottom: -30px;
+  font-size: 118px;
   font-weight: 800;
   color: var(--slate-deep);
   opacity: .05;
   line-height: 1;
   pointer-events: none;
 }
-.home-link-card::after {
+.home-link-card.is-icon::after {
   content: "";
   position: absolute;
   left: 0; top: 0;
@@ -134,12 +153,7 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(90deg, var(--accent), var(--accent-dark));
   transition: width .35s ease;
 }
-.home-link-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 22px 44px rgba(23,28,36,.14);
-  border-color: var(--accent);
-}
-.home-link-card:hover::after { width: 100%; }
+.home-link-card.is-icon:hover::after { width: 100%; }
 .hl-icon {
   width: 42px; height: 42px;
   display: flex; align-items: center; justify-content: center;
@@ -149,8 +163,8 @@ a { color: inherit; text-decoration: none; }
   z-index: 1;
 }
 .hl-icon svg { width: 100%; height: 100%; }
-.home-link-card h3 { position: relative; z-index: 1; font-size: 21px; font-weight: 800; color: var(--slate-deep); margin-bottom: 10px; }
-.home-link-card p { position: relative; z-index: 1; font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px; flex-grow: 1; }
+.home-link-card.is-icon h3 { position: relative; z-index: 1; font-size: 21px; font-weight: 800; color: var(--slate-deep); margin-bottom: 10px; }
+.home-link-card.is-icon p { position: relative; z-index: 1; font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 18px; flex-grow: 1; }
 .hl-more {
   position: relative; z-index: 1;
   display: inline-flex; align-items: center; gap: 6px;
@@ -164,6 +178,7 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 560px) {
   .home-link-grid { grid-template-columns: 1fr; }
+  .home-link-card:nth-child(odd), .home-link-card:nth-child(even) { --stagger: 0px; }
   .home-links { padding: 64px 20px; }
 }
 
