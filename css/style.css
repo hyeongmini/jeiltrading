@@ -121,52 +121,92 @@ a { color: inherit; text-decoration: none; }
 .page-banner-content { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 24px; width: 100%; }
 .page-banner h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; }
 
-/* ---------- Home links: 원형 사진/아이콘 + 단일 설명 밴드 (절제된 구성) ---------- */
+/* ---------- Home links: 원형 사진/아이콘 + 카드형 설명 패널 (절제되지만 밀도 있는 구성) ---------- */
 .home-links { padding: 110px 24px; background: var(--bg); }
 .home-links-inner { max-width: var(--max); margin: 0 auto; }
 
-.category-row { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; margin-bottom: 56px; }
+.home-links-head { text-align: center; margin-bottom: 60px; }
+.home-links-head .eyebrow-plain {
+  display: inline-block; font-size: 14px; font-weight: 800; letter-spacing: .24em;
+  color: var(--accent); margin-bottom: 14px;
+}
+.home-links-head h2 { font-size: 32px; font-weight: 800; color: var(--slate-deep); letter-spacing: -0.01em; }
+.home-links-head p { font-size: 17px; color: var(--ink-soft); margin-top: 12px; }
+
+.category-row { display: flex; justify-content: center; gap: 72px; flex-wrap: wrap; margin-bottom: 52px; }
 .category-item {
   background: none; border: none; cursor: pointer; padding: 0;
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
   font-family: inherit;
 }
 .category-photo {
   position: relative;
-  width: 132px; height: 132px;
+  width: 156px; height: 156px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid transparent;
-  transition: border-color .3s ease;
+  border: 4px solid var(--card-bg);
+  box-shadow: 0 0 0 2px var(--border), 0 16px 32px rgba(23,28,36,.14);
+  transition: box-shadow .3s ease, transform .3s ease;
 }
-.category-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter .35s ease, transform .5s ease; }
-.category-photo.is-icon { display: flex; align-items: center; justify-content: center; background: var(--card-bg); border-color: var(--border); }
-.category-photo.is-icon svg { width: 46px; height: 46px; color: var(--ink-soft); transition: color .3s ease; }
-.category-item:hover .category-photo img { transform: scale(1.06); }
-.category-item:hover .category-photo.is-icon { border-color: var(--accent); }
-.category-item.is-active .category-photo { border-color: var(--accent); }
-.category-item.is-active .category-photo img { filter: grayscale(0); }
+.category-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(.95); transition: filter .35s ease, transform .6s ease; }
+.category-photo.is-icon { display: flex; align-items: center; justify-content: center; background: var(--card-bg); }
+.category-photo.is-icon svg { width: 52px; height: 52px; color: var(--ink-soft); transition: color .3s ease; }
+.category-item:hover .category-photo { transform: translateY(-6px); }
+.category-item:hover .category-photo img { transform: scale(1.08); }
+.category-item.is-active .category-photo {
+  box-shadow: 0 0 0 3px var(--accent), 0 20px 40px rgba(200,137,31,.28);
+  transform: translateY(-6px);
+}
+.category-item.is-active .category-photo img { filter: grayscale(0) brightness(1); }
 .category-item.is-active .category-photo.is-icon svg { color: var(--accent); }
-.category-label { font-size: 18px; font-weight: 700; color: var(--ink-soft); transition: color .25s ease; }
+.category-label { display: block; text-align: center; font-size: 18px; font-weight: 800; color: var(--ink-soft); transition: color .25s ease; }
 .category-item.is-active .category-label, .category-item:hover .category-label { color: var(--slate-deep); }
+.category-num {
+  display: block; font-size: 12px; font-weight: 800; letter-spacing: .1em;
+  color: var(--accent); margin-bottom: 2px;
+}
 
-.category-detail { position: relative; border-top: 1px solid var(--border); padding-top: 44px; }
-.category-panel { display: none; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
-.category-panel.is-active { display: flex; }
-.category-panel p { font-size: 19px; line-height: 1.7; color: var(--ink-soft); max-width: 620px; }
+.category-detail {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(23,28,36,.08);
+  padding: 48px 56px;
+}
+.category-detail::before {
+  content: "“";
+  position: absolute;
+  top: -6px; left: 30px;
+  font-size: 90px;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: .18;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+.category-panel { display: none; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.category-panel.is-active { display: flex; animation: panelFade .35s ease; }
+@keyframes panelFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.category-panel p { position: relative; font-size: 20px; font-weight: 600; line-height: 1.7; color: var(--slate-deep); max-width: 620px; }
 .category-link {
   flex-shrink: 0;
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 16px; font-weight: 700; color: var(--accent-dark);
-  padding-bottom: 4px; border-bottom: 2px solid var(--accent);
+  font-size: 16px; font-weight: 800; color: #fff;
+  background: var(--accent-dark);
+  padding: 12px 22px;
+  border-radius: 999px;
+  transition: background .2s ease, transform .2s ease;
 }
-.category-link:hover { color: var(--accent); }
+.category-link:hover { background: var(--accent); transform: translateX(3px); }
 
 @media (max-width: 760px) {
   .category-row { gap: 32px; }
-  .category-photo { width: 100px; height: 100px; }
+  .category-photo { width: 104px; height: 104px; }
+  .category-photo.is-icon svg { width: 36px; height: 36px; }
   .category-label { font-size: 15px; }
-  .category-panel { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .category-detail { padding: 34px 26px; }
+  .category-panel { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .home-links-head h2 { font-size: 25px; }
 }
 @media (max-width: 560px) {
   .home-links { padding: 64px 20px; }
