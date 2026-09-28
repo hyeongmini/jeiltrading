@@ -87,22 +87,49 @@ a { color: inherit; text-decoration: none; }
 .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,28,36,.78) 0%, rgba(23,28,36,.55) 55%, rgba(23,28,36,.85) 100%); }
 .hero-content { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 100px 24px; width: 100%; }
-.eyebrow { display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: .2em; color: var(--accent); border: 1px solid var(--accent); padding: 6px 16px; margin-bottom: 22px; }
+.eyebrow {
+  display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: .2em; color: var(--accent);
+  border: 1px solid var(--accent); padding: 6px 20px 6px 16px; margin-bottom: 22px;
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 0% 100%);
+}
 .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; margin-bottom: 20px; }
 .hero-sub { font-size: 19px; color: rgba(255,255,255,.82); max-width: 560px; margin-bottom: 30px; font-weight: 500; }
-.btn-primary { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 18px; padding: 13px 30px; border: 1px solid var(--accent); transition: background .15s, color .15s; }
+.btn-primary {
+  display: inline-block; background: var(--accent); color: #fff; font-weight: 700; font-size: 18px;
+  padding: 13px 34px 13px 30px; border: 1px solid var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 92% 100%, 0 100%);
+  transition: background .15s, color .15s, clip-path .2s ease;
+}
 .btn-primary:hover { background: transparent; color: var(--accent); }
 
 /* ---------- Page banner ---------- */
 .page-banner { position: relative; min-height: 240px; display: flex; align-items: center; overflow: hidden; color: #fff; background: var(--slate-deep); }
 .page-banner .hero-bg img { object-fit: cover; object-position: center 45%; }
-.banner-accent-bar { height: 4px; background: var(--accent); }
+.banner-accent-bar {
+  height: 10px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 40%, 0 100%);
+}
 .page-banner-content { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 24px; width: 100%; }
 .page-banner h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; }
 
 /* ---------- Home links: 비대칭 벤토 + 강한 호버 이펙트 + 스크롤 리빌 ---------- */
-.home-links { padding: 100px 24px; background: var(--bg); overflow: hidden; }
-.home-links-inner { max-width: var(--max); margin: 0 auto; }
+.home-links { position: relative; padding: 100px 24px; background: var(--bg); overflow: hidden; }
+.home-links::before {
+  content: "1957";
+  position: absolute;
+  top: -0.28em; left: 50%;
+  transform: translateX(-50%);
+  font-size: 320px;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(23,28,36,.07);
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+.home-links-inner { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; }
 .home-link-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -122,11 +149,12 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 90% 100%, 0 100%);
   opacity: 0;
   transform: translateY(28px);
-  transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, opacity .6s ease;
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, opacity .6s ease, clip-path .3s ease;
 }
+.home-link-card[data-area="about"] { clip-path: polygon(0 0, 100% 0, 100% 94%, 95% 100%, 0 100%); }
 .home-link-card.is-visible { opacity: 1; transform: translateY(0); }
 .home-link-card:nth-child(1).is-visible { transition-delay: .02s; }
 .home-link-card:nth-child(2).is-visible { transition-delay: .12s; }
@@ -248,7 +276,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- 사업영역 ---------- */
 .biz-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
-.biz-feature-photo { aspect-ratio: 4/3; overflow: hidden; }
+.biz-feature-photo { aspect-ratio: 4/3; overflow: hidden; clip-path: polygon(0 0, 100% 0, 100% 92%, 90% 100%, 0 100%); }
 .biz-feature-photo img { width: 100%; height: 100%; object-fit: cover; }
 .biz-feature-text h4 { font-size: 22px; font-weight: 800; color: var(--slate-deep); margin-bottom: 14px; }
 .biz-feature-text p { font-size: 17px; line-height: 1.85; color: var(--ink-soft); margin-bottom: 14px; }
@@ -270,7 +298,8 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   overflow: hidden;
   padding: 30px 28px 26px;
-  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+  clip-path: polygon(0 0, 94% 0, 100% 14%, 100% 100%, 0 100%);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, clip-path .3s ease;
 }
 .welfare-category:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(23,28,36,.16); z-index: 1; }
 .welfare-category::after {
@@ -315,7 +344,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- 사업영역: 취급 제품 (SK아스팔트 공식 라인업) ---------- */
 .product-spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.product-spec-card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px 26px; }
+.product-spec-card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px 26px; clip-path: polygon(0 0, 100% 0, 100% 94%, 96% 100%, 0 100%); }
 .product-spec-card h4 { font-size: 20px; font-weight: 800; color: var(--slate-deep); margin-bottom: 4px; }
 .product-spec-card .ps-en { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--accent-dark); margin-bottom: 14px; display: block; }
 .product-spec-card p { font-size: 15px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 14px; }
@@ -335,6 +364,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border);
   padding: 26px 20px;
   text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
 }
 .flow-step.is-jeil { border-color: var(--accent); box-shadow: 0 8px 20px rgba(200,137,31,.15); }
 .flow-step strong { display: block; font-size: 17px; font-weight: 800; color: var(--slate-deep); margin-bottom: 6px; }
