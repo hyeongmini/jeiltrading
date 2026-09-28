@@ -8,3 +8,25 @@
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
   });
 })();
+
+// 메인 메뉴 카드 스크롤 리빌
+(function () {
+  const cards = document.querySelectorAll(".home-link-card");
+  if (!cards.length) return;
+  if (!("IntersectionObserver" in window)) {
+    cards.forEach((c) => c.classList.add("is-visible"));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  cards.forEach((c) => io.observe(c));
+})();
