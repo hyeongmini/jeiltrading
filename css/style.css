@@ -123,138 +123,54 @@ a { color: inherit; text-decoration: none; }
 .page-banner-content { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 24px; width: 100%; }
 .page-banner h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.01em; }
 
-/* ---------- Home links: 비대칭 벤토 + 강한 호버 이펙트 + 스크롤 리빌 ---------- */
-.home-links { position: relative; z-index: 2; padding: 100px 24px; background: var(--bg); overflow: hidden; box-shadow: 0 -40px 60px rgba(0,0,0,.15); }
-.home-links::before {
-  content: "1957";
-  position: absolute;
-  top: -0.28em; left: 50%;
-  transform: translateX(-50%);
-  font-size: 320px;
-  font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(23,28,36,.07);
-  line-height: 1;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 0;
-}
-.home-links-inner { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; }
-.home-link-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 190px 190px;
-  grid-template-areas:
-    "a a b c"
-    "a a b d";
-  gap: 20px;
-}
-.home-link-card[data-area="about"] { grid-area: a; }
-.home-link-card[data-area="business"] { grid-area: b; }
-.home-link-card[data-area="policy"] { grid-area: c; }
-.home-link-card[data-area="welfare"] { grid-area: d; }
+/* ---------- Home links: 원형 사진/아이콘 + 단일 설명 밴드 (절제된 구성) ---------- */
+.home-links { padding: 110px 24px; background: var(--bg); }
+.home-links-inner { max-width: var(--max); margin: 0 auto; }
 
-.home-link-card {
+.category-row { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; margin-bottom: 56px; }
+.category-item {
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  font-family: inherit;
+}
+.category-photo {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: 132px; height: 132px;
+  border-radius: 50%;
   overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 100% 88%, 90% 100%, 0 100%);
-  opacity: 0;
-  transform: translateY(28px);
-  transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, opacity .6s ease, clip-path .3s ease;
+  border: 3px solid transparent;
+  transition: border-color .3s ease;
 }
-.home-link-card[data-area="about"] { clip-path: polygon(0 0, 100% 0, 100% 94%, 95% 100%, 0 100%); }
-.home-link-card.is-visible { opacity: 1; transform: translateY(0); }
-.home-link-card:nth-child(1).is-visible { transition-delay: .02s; }
-.home-link-card:nth-child(2).is-visible { transition-delay: .12s; }
-.home-link-card:nth-child(3).is-visible { transition-delay: .2s; }
-.home-link-card:nth-child(4).is-visible { transition-delay: .28s; }
-.home-link-card:hover { transform: translateY(-10px); box-shadow: 0 28px 54px rgba(23,28,36,.24); z-index: 2; }
+.category-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter .35s ease, transform .5s ease; }
+.category-photo.is-icon { display: flex; align-items: center; justify-content: center; background: var(--card-bg); border-color: var(--border); }
+.category-photo.is-icon svg { width: 46px; height: 46px; color: var(--ink-soft); transition: color .3s ease; }
+.category-item:hover .category-photo img { transform: scale(1.06); }
+.category-item:hover .category-photo.is-icon { border-color: var(--accent); }
+.category-item.is-active .category-photo { border-color: var(--accent); }
+.category-item.is-active .category-photo img { filter: grayscale(0); }
+.category-item.is-active .category-photo.is-icon svg { color: var(--accent); }
+.category-label { font-size: 18px; font-weight: 700; color: var(--ink-soft); transition: color .25s ease; }
+.category-item.is-active .category-label, .category-item:hover .category-label { color: var(--slate-deep); }
 
-/* 사진형 카드 (소개/사업영역) */
-.home-link-card.is-photo { color: #fff; }
-.home-link-card.is-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .4s ease; filter: saturate(.92); }
-.home-link-card.is-photo:hover img { transform: scale(1.12) rotate(.3deg); filter: saturate(1.1); }
-.home-link-card.is-photo .hl-tint {
-  position: absolute; inset: 0;
-  background: linear-gradient(200deg, rgba(23,28,36,.08) 15%, rgba(23,28,36,.92) 100%);
-  transition: background .4s ease;
+.category-detail { position: relative; border-top: 1px solid var(--border); padding-top: 44px; }
+.category-panel { display: none; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.category-panel.is-active { display: flex; }
+.category-panel p { font-size: 19px; line-height: 1.7; color: var(--ink-soft); max-width: 620px; }
+.category-link {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 16px; font-weight: 700; color: var(--accent-dark);
+  padding-bottom: 4px; border-bottom: 2px solid var(--accent);
 }
-.home-link-card.is-photo:hover .hl-tint { background: linear-gradient(200deg, rgba(200,137,31,.18) 0%, rgba(23,28,36,.94) 100%); }
-.home-link-card.is-photo .hl-body { position: relative; z-index: 1; margin-top: auto; padding: 30px 30px 26px; }
-.home-link-card.is-photo .hl-eyebrow {
-  font-size: 13px; font-weight: 800; letter-spacing: .16em; color: var(--accent);
-  margin-bottom: 10px; display: inline-block;
-  transform: translateX(0); transition: transform .35s ease;
-}
-.home-link-card.is-photo:hover .hl-eyebrow { transform: translateX(6px); }
-.home-link-card.is-photo[data-area="about"] h3 { font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.01em; }
-.home-link-card.is-photo[data-area="about"] p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.85); max-width: 360px; }
-.home-link-card.is-photo[data-area="business"] h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-.home-link-card.is-photo[data-area="business"] p { font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,.82); }
-.hl-arrow-badge {
-  position: absolute; top: 20px; right: 20px; z-index: 1;
-  width: 38px; height: 38px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.14);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  opacity: 0; transform: translate(-8px, 8px) rotate(-45deg);
-  transition: opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1);
-}
-.hl-arrow-badge svg { width: 16px; height: 16px; }
-.home-link-card:hover .hl-arrow-badge { opacity: 1; transform: translate(0,0) rotate(0deg); background: var(--accent); }
+.category-link:hover { color: var(--accent); }
 
-/* 컬러 타일 (경영방침/복지제도 - 작은 셀) */
-.home-link-card.is-tile {
-  color: #fff;
-  padding: 24px 24px 20px;
-  justify-content: space-between;
-}
-.home-link-card.is-tile::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 85% 15%, rgba(255,255,255,.16), transparent 55%);
-  opacity: 0; transition: opacity .4s ease;
-}
-.home-link-card.is-tile:hover::before { opacity: 1; }
-.home-link-card.is-tile.tile-slate { background: linear-gradient(155deg, var(--slate-deep) 0%, #262f3b 100%); }
-.home-link-card.is-tile.tile-accent { background: linear-gradient(155deg, var(--accent) 0%, var(--accent-dark) 100%); }
-.tile-icon {
-  position: relative; z-index: 1;
-  width: 32px; height: 32px; color: rgba(255,255,255,.92);
-  transition: transform .4s cubic-bezier(.2,.8,.2,1);
-}
-.tile-icon svg { width: 100%; height: 100%; }
-.home-link-card.is-tile:hover .tile-icon { transform: scale(1.15) rotate(-6deg); }
-.home-link-card.is-tile h3 { position: relative; z-index: 1; font-size: 19px; font-weight: 800; margin-bottom: 4px; }
-.home-link-card.is-tile p { position: relative; z-index: 1; font-size: 13px; line-height: 1.5; color: rgba(255,255,255,.78); }
-.tile-arrow {
-  position: relative; z-index: 1;
-  display: inline-flex; width: 22px; height: 22px; margin-top: 10px;
-  color: #fff; opacity: .7;
-  transform: translateX(0); transition: transform .3s ease, opacity .3s ease;
-}
-.tile-arrow svg { width: 100%; height: 100%; }
-.home-link-card.is-tile:hover .tile-arrow { transform: translateX(6px); opacity: 1; }
-
-@media (max-width: 860px) {
-  .home-link-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 260px 150px 150px;
-    grid-template-areas:
-      "a a"
-      "b c"
-      "b d";
-  }
+@media (max-width: 760px) {
+  .category-row { gap: 32px; }
+  .category-photo { width: 100px; height: 100px; }
+  .category-label { font-size: 15px; }
+  .category-panel { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
 @media (max-width: 560px) {
-  .home-link-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: 220px repeat(3, 150px);
-    grid-template-areas: "a" "b" "c" "d";
-  }
   .home-links { padding: 64px 20px; }
 }
 

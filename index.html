@@ -47,43 +47,42 @@
 
   <section class="home-links" id="home-links">
     <div class="home-links-inner">
-      <div class="home-link-grid">
-        <a href="about.html" class="home-link-card is-photo" data-area="about">
-          <img src="img/stock-about.jpg" alt="">
-          <div class="hl-tint"></div>
-          <span class="hl-arrow-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          <div class="hl-body">
-            <span class="hl-eyebrow">ABOUT US</span>
-            <h3>소개</h3>
-            <p>1957년 설립 이후 이어온 제일물산(주)의 회사 개요와 연혁을 확인해보세요.</p>
-          </div>
-        </a>
-        <a href="business.html" class="home-link-card is-photo" data-area="business">
-          <img src="img/stock-business.jpg" alt="">
-          <div class="hl-tint"></div>
-          <span class="hl-arrow-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          <div class="hl-body">
-            <span class="hl-eyebrow">BUSINESS</span>
-            <h3>사업영역</h3>
-            <p>SK아스팔트 공식 판매대리점으로서의 사업영역을 소개합니다.</p>
-          </div>
-        </a>
-        <a href="policy.html" class="home-link-card is-tile tile-slate" data-area="policy">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M24 15v9l6 6"/></svg></span>
-          <div>
-            <h3>경영방침</h3>
-            <p>제일물산(주)의 경영방침을 안내합니다.</p>
-            <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </a>
-        <a href="welfare.html" class="home-link-card is-tile tile-accent" data-area="welfare">
-          <span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M24 40C10 30 6 22 6 15A9 9 0 0 1 24 12A9 9 0 0 1 42 15C42 22 38 30 24 40Z"/></svg></span>
-          <div>
-            <h3>복지제도</h3>
-            <p>제일물산(주)의 복지제도를 안내합니다.</p>
-            <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </a>
+      <div class="category-row">
+        <button type="button" class="category-item is-active" data-target="about">
+          <span class="category-photo"><img src="img/stock-about.jpg" alt=""></span>
+          <span class="category-label">소개</span>
+        </button>
+        <button type="button" class="category-item" data-target="business">
+          <span class="category-photo"><img src="img/stock-business.jpg" alt=""></span>
+          <span class="category-label">사업영역</span>
+        </button>
+        <button type="button" class="category-item" data-target="policy">
+          <span class="category-photo is-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M24 15v9l6 6"/></svg></span>
+          <span class="category-label">경영방침</span>
+        </button>
+        <button type="button" class="category-item" data-target="welfare">
+          <span class="category-photo is-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M24 40C10 30 6 22 6 15A9 9 0 0 1 24 12A9 9 0 0 1 42 15C42 22 38 30 24 40Z"/></svg></span>
+          <span class="category-label">복지제도</span>
+        </button>
+      </div>
+
+      <div class="category-detail">
+        <div class="category-panel is-active" id="panel-about">
+          <p>1957년 설립 이후 이어온 제일물산(주)의 회사 개요와 연혁을 확인해보세요.</p>
+          <a href="about.html" class="category-link">바로가기 →</a>
+        </div>
+        <div class="category-panel" id="panel-business">
+          <p>SK아스팔트 공식 판매대리점으로서의 사업영역을 소개합니다.</p>
+          <a href="business.html" class="category-link">바로가기 →</a>
+        </div>
+        <div class="category-panel" id="panel-policy">
+          <p>제일물산(주)의 경영방침을 안내합니다.</p>
+          <a href="policy.html" class="category-link">바로가기 →</a>
+        </div>
+        <div class="category-panel" id="panel-welfare">
+          <p>제일물산(주)의 복지제도를 안내합니다.</p>
+          <a href="welfare.html" class="category-link">바로가기 →</a>
+        </div>
       </div>
     </div>
   </section>

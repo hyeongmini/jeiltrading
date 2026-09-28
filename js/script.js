@@ -9,26 +9,21 @@
   });
 })();
 
-// 메인 메뉴 카드 스크롤 리빌
+// 메인 화면 카테고리 선택 (원형 사진/아이콘 + 단일 설명 밴드)
 (function () {
-  const cards = document.querySelectorAll(".home-link-card");
-  if (!cards.length) return;
-  if (!("IntersectionObserver" in window)) {
-    cards.forEach((c) => c.classList.add("is-visible"));
-    return;
-  }
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          io.unobserve(entry.target);
-        }
+  const items = document.querySelectorAll(".category-item");
+  if (!items.length) return;
+  const panels = document.querySelectorAll(".category-panel");
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      items.forEach((i) => i.classList.remove("is-active"));
+      item.classList.add("is-active");
+      const target = item.getAttribute("data-target");
+      panels.forEach((panel) => {
+        panel.classList.toggle("is-active", panel.id === "panel-" + target);
       });
-    },
-    { threshold: 0.15 }
-  );
-  cards.forEach((c) => io.observe(c));
+    });
+  });
 })();
 
 // 맨 위로 버튼
