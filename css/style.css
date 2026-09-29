@@ -306,9 +306,26 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* ---------- 사업영역: 취급 제품 (SK아스팔트 공식 라인업) ---------- */
-.product-spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.product-spec-card { background: var(--card-bg); border: 1px solid var(--border); padding: 30px 26px; clip-path: polygon(0 0, 100% 0, 100% 94%, 96% 100%, 0 100%); }
+/* ---------- 사업영역 카드 ---------- */
+.product-spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.product-spec-card {
+  position: relative;
+  background: linear-gradient(165deg, var(--card-bg) 0%, var(--card-bg) 60%, color-mix(in srgb, var(--accent) 7%, var(--card-bg)) 100%);
+  border: 1px solid var(--border);
+  padding: 36px 30px;
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 96% 100%, 0 100%);
+  box-shadow: 0 14px 34px rgba(23,28,36,.06);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.product-spec-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(23,28,36,.1); }
+.ps-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.ps-icon svg { width: 28px; height: 28px; color: var(--accent-dark); }
 .product-spec-card h4 { font-size: 20px; font-weight: 800; color: var(--slate-deep); margin-bottom: 4px; }
 .product-spec-card .ps-en { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--accent-dark); margin-bottom: 14px; display: block; }
 .product-spec-card p { font-size: 15px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 14px; }
