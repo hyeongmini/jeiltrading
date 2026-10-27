@@ -1,39 +1,46 @@
-// 모바일 메뉴 토글
 (function () {
-  const toggle = document.getElementById("navToggle");
-  const nav = document.getElementById("siteNav");
-  if (!toggle || !nav) return;
-  toggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("is-open");
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-})();
+  var header = document.getElementById('siteHeader');
+  function onScroll() { if (header) header.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-// 메인 화면 카테고리 선택 (원형 사진/아이콘 + 단일 설명 밴드)
-(function () {
-  const items = document.querySelectorAll(".category-item");
-  if (!items.length) return;
-  const panels = document.querySelectorAll(".category-panel");
-  items.forEach((item) => {
-    item.addEventListener("click", () => {
-      items.forEach((i) => i.classList.remove("is-active"));
-      item.classList.add("is-active");
-      const target = item.getAttribute("data-target");
-      panels.forEach((panel) => {
-        panel.classList.toggle("is-active", panel.id === "panel-" + target);
-      });
-    });
-  });
-})();
+  // 전체화면 메뉴
+  var overlay = document.getElementById('menuOverlay');
+  var openBtn = document.getElementById('menuBtn');
+  var closeBtn = document.getElementById('menuClose');
+  function setMenu(open) {
+    if (!overlay) return;
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (openBtn) openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if (openBtn) openBtn.addEventListener('click', function () { setMenu(true); });
+  if (closeBtn) closeBtn.addEventListener('click', function () { setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  if (overlay) overlay.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
 
-// 맨 위로 버튼
-(function () {
-  const btn = document.getElementById("scrollTopBtn");
-  if (!btn) return;
-  window.addEventListener("scroll", () => {
-    btn.classList.toggle("is-visible", window.scrollY > 500);
-  });
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  // 히어로 슬라이더 (자동 전환 + 점)
+  var hero = document.getElementById('heroSlider');
+  if (hero) {
+    var slides = hero.querySelectorAll('.slide');
+    var dots = hero.querySelectorAll('.hero-dots button');
+    var cur = 0, timer = null;
+    function go(n) {
+      slides[cur].classList.remove('active');
+      if (dots[cur]) dots[cur].classList.remove('on');
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      if (dots[cur]) dots[cur].classList.add('on');
+    }
+    function auto() { clearInterval(timer); timer = setInterval(function () { go(cur + 1); }, 7000); }
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i); auto(); }); });
+    go(0); auto();
+  }
+
+  // 스크롤 등장 효과
+  var items = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  } else { items.forEach(function (el) { el.classList.add('in'); }); }
 })();
