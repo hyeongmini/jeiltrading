@@ -153,14 +153,14 @@ a { color: inherit; text-decoration: none; }
 
 .w-lead { text-align: center; font-size: clamp(15px, 1.4vw, 18px); font-weight: 500; line-height: 1.8; color: var(--navy); }
 .blk-dark { background: radial-gradient(circle at 80% 10%, #34445a 0%, #171c24 60%, #0d1015 100%); }
-.wf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.wf { display: flex; align-items: center; gap: 22px; padding: 32px 28px; border: 1px solid rgba(255,255,255,.14); border-top: 3px solid var(--gold); border-radius: 4px; background: rgba(255,255,255,.04); transition: background .25s, transform .25s; }
+.wf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
+.wf { display: flex; align-items: flex-start; gap: 22px; padding: 32px 28px; border: 1px solid rgba(255,255,255,.14); border-top: 3px solid var(--gold); border-radius: 4px; background: rgba(255,255,255,.04); transition: background .25s, transform .25s; }
 .wf:hover { background: rgba(255,255,255,.09); transform: translateY(-5px); }
 .wf-ic { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--gold-light); display: grid; place-items: center; color: var(--gold-light); }
 .wf-ic svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.wf-tx { min-width: 0; }
+.wf-tx { min-width: 0; flex: 1 1 0; padding-top: 23px; }
 .wf h3 { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.4; }
-.wf p { margin-top: 6px; font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.65; }
+.wf p { margin-top: 0; font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.65; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s ease, opacity .3s ease, margin-top .3s ease; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: #14181f; color: rgba(255,255,255,.62); padding: 56px 0 30px; }
@@ -207,3 +207,15 @@ a { color: inherit; text-decoration: none; }
   .location-panel { padding: 28px 22px; }
 }
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .slide, .slide-inner, .slide-bg img { transition: none; } .scroll-down::after { animation: none; } html { scroll-behavior: auto; } }
+
+/* 복지제도: 제목만 보이다가 마우스를 올리면(키보드 포커스 포함) 세부내용이 아래로 펼쳐짐 */
+.wf.has { cursor: default; outline: none; }
+.wf.has h3::after { content: "+"; display: inline-block; margin-left: 10px; font-weight: 400; color: var(--gold-light); transition: transform .3s ease; }
+.wf.has:hover h3::after, .wf.has:focus-within h3::after, .wf.has:focus h3::after { transform: rotate(45deg); }
+.wf.has:hover p, .wf.has:focus p, .wf.has:focus-within p { max-height: 7em; opacity: 1; margin-top: 8px; }
+.wf.has:focus-visible { box-shadow: 0 0 0 2px var(--gold-light); }
+@media (hover: none) {
+  .wf p { max-height: none; opacity: 1; margin-top: 8px; }
+  .wf.has h3::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .wf p, .wf.has h3::after { transition: none; } }
